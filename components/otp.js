@@ -10,7 +10,7 @@ const OTPVerification = () => {
 
   const handleGenerateOTP = () => {
     // Make API call to the backend to generate and send OTP
-    fetch("http://localhost:5000/api/generate-otp", {
+    fetch("http://192.168.0.154:5004/api/generate-otp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +29,7 @@ const OTPVerification = () => {
 
   const handleVerifyOTP = () => {
     // Make API call to the backend to verify the entered OTP
-    fetch("http://localhost:5000/api/verify-otp", {
+    fetch("http://192.168.0.154:5004/api/verify-otp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -89,7 +89,7 @@ const styles = {
     alignItems: "center",
   },
   otpParent: {
-    width: "80%",
+    width: "98%",
   },
   heading: {
     fontSize: 24,
@@ -106,7 +106,10 @@ const styles = {
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 10,
+    gap:3
   },
+
+
 };
 
 export default OTPVerification;

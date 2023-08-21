@@ -8,17 +8,17 @@ import Singin_Signup from './components/signinsingup'
 import Otp from './components/otp'
 
 const App = () => {
- 
+     console.log('helllooo')
   return (
     <ScrollView contentContainerStyle={styles.container}>
 
-      <Singin_Signup/>
+      {/* <Singin_Signup/> */}
 
       {/* <Register/> */}
       
       <Otp/>
 
-      <Example/>
+      {/* <Example/> */}
 
     </ScrollView>
   );

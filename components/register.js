@@ -18,6 +18,9 @@ const Register = () => {
     setRegData({ ...regdata, [name]: value });
   };
 
+
+
+
   const regsubmit = () => {
     if (
       regdata.restaurantname !== '' &&
@@ -31,7 +34,40 @@ const Register = () => {
       setFormNone(false);
     }
     console.log('register data',regdata)
-  };
+  
+
+
+
+    fetch("http://192.168.0.154:5000/usersdata", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json" // Fix: Use "Content-Type" instead of "content-type"
+      },
+      body: JSON.stringify({
+        username: regdata.restaurantname,
+        email: regdata.businessmail,
+        password: regdata.password,
+        confirmpassword: regdata.confirmpassword,
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.status}`);
+      }
+      return response.json(); // Parse the JSON response
+    })
+    .then(data => {
+      console.log("posted data successfully", data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }
+
+
+
+
+
 
   useEffect(() => {
     if (!formNone) {

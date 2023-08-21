@@ -1,10 +1,13 @@
+import { View, Text } from 'react-native'
 import React from 'react'
-import { View, Text, TextInput, Button } from 'react-native';
 
-const Example = () => {
+const example = () => {
   return (
-    <Text>Example</Text>
+    <View>
+      <Text>example</Text>
+    </View>
   )
 }
 
-export default Example
+export default example
+
