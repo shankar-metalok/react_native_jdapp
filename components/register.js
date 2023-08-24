@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 
-const Register = () => {
+const Register = ({navigation}) => {
   const [regsuccess, setRegSuccess] = useState(null);
   const [formNone, setFormNone] = useState(true);
 
@@ -38,14 +38,15 @@ const Register = () => {
 
 
 
-    fetch("http://192.168.0.154:5000/usersdata", {
+    fetch("http://192.168.0.153:5000/usersdata", {
       method: "post",
       headers: {
-        "Content-Type": "application/json" // Fix: Use "Content-Type" instead of "content-type"
+        "Content-Type": "application/json" 
       },
       body: JSON.stringify({
         username: regdata.restaurantname,
         email: regdata.businessmail,
+        phonenumber:regdata.phonenumber,
         password: regdata.password,
         confirmpassword: regdata.confirmpassword,
       })
@@ -54,7 +55,7 @@ const Register = () => {
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.status}`);
       }
-      return response.json(); // Parse the JSON response
+      return response.json();
     })
     .then(data => {
       console.log("posted data successfully", data);
@@ -77,6 +78,7 @@ const Register = () => {
 
   const successFun = () => {
     // navigation.navigate('SignUp');
+    navigation.navigate('Singin_Signup')
   };
 
   return (
@@ -146,8 +148,10 @@ const Register = () => {
 
 const styles = {
   container: {
-    margin: 20,
-    width:'80%'
+   flex:1,
+   alignItems:'center',
+  //  justifyContent:'center'
+
   },
   successContainer: {
     marginBottom: 20,
@@ -160,6 +164,11 @@ const styles = {
   },
   formContainer: {
     marginBottom: 20,
+    width:'80%',
+    borderColor:'red',
+  
+  
+
   },
   formHeaderText: {
     marginBottom: 20,

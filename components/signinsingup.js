@@ -1,81 +1,92 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, Button } from "react-native";
-// import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from "react";
+import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 
-const Signup = () => {
-//   const navigation = useNavigation();
+const Signup = ({ navigation }) => {
   const [signinup, setsigninup] = useState(true);
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
 
-  const signin = () => {
-    setsigninup(true);
+  const handleEmailChange = (text) => {
+    setemail(text);
   };
-  const signup = () => {
-    setsigninup(false);
+
+  const handlePasswordChange = (text) => {
+    setpassword(text);
   };
 
   const loginfun = () => {
-    navigation.navigate('Home');
+    fetch("http://192.168.0.153:5000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: email, password: password }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Network response was not ok: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("posted data successfully", data);
+        navigation.navigate("Home");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   const createaccountfun = () => {
-    navigation.navigate('Home');
+    navigation.navigate("Home");
   };
+
+  useEffect(() => {
+    console.log(email, "email");
+    console.log(password, "password");
+  }, [email, password]);
 
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
-        <Text style={styles.buttonText} onPress={signin}>
+        <Text style={styles.buttonText} onPress={() => setsigninup(true)}>
           Sign In
         </Text>
-        <Text style={styles.buttonText} onPress={signup}>
+        <Text style={styles.buttonText} onPress={() => setsigninup(false)}>
           Sign Up
         </Text>
       </View>
 
-      {signinup ? (
-        <View style={styles.formContainer}>
-          <Text style={styles.heading}>Sign In To Your Account</Text>
-          <View>
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              secureTextEntry
-            />
-          </View>
-
-          <Button title="Login" onPress={loginfun} />
+      <View style={styles.formContainer}>
+        <Text style={styles.heading}>
+          {signinup ? "Sign In To Your Account" : "Sign Up To Your Account"}
+        </Text>
+        <View>
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            value={email}
+            onChangeText={handleEmailChange}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            secureTextEntry
+            value={password}
+            onChangeText={handlePasswordChange}
+          />
         </View>
-      ) : (
-        <View style={styles.formContainer}>
-          <Text style={styles.heading}>Sign Up To Your Account</Text>
-          <View>
-            <TextInput
-              style={styles.input}
-              placeholder="Full Name"
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              secureTextEntry
-            />
-          </View>
 
-          <Button title="Create Account" onPress={createaccountfun} />
-        </View>
-      )}
+        <Button
+          title={signinup ? "Login" : "Create Account"}
+          onPress={signinup ? loginfun : createaccountfun}
+        />
+      </View>
     </View>
   );
 };
-
-const styles = {
+// example@example.com  examplePassword
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
@@ -87,7 +98,11 @@ const styles = {
   },
   buttonText: {
     marginRight: 10,
-    color: "blue",
+    fontSize: 18,
+    color: "white",
+    backgroundColor: "green",
+    padding: 10,
+    borderRadius: 5,
   },
   formContainer: {
     marginTop: 20,
@@ -101,6 +116,6 @@ const styles = {
     marginBottom: 10,
     padding: 5,
   },
-};
+});
 
 export default Signup;
