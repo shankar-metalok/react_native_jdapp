@@ -23,9 +23,9 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Singin_Signup" component={Singin_Signup} />
-        <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Otp" component={Otp} />
 
         <Stack.Screen name="Paymentmethod" component={Paymentmethod} />

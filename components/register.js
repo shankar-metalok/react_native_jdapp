@@ -9,7 +9,7 @@ const Register = ({navigation}) => {
     restaurantname: '',
     businessmail: '',
     phonenumber: '',
-    location: '',
+    // location: '',
     password: '',
     confirmpassword: '',
   });
@@ -26,7 +26,7 @@ const Register = ({navigation}) => {
       regdata.restaurantname !== '' &&
       regdata.businessmail &&
       regdata.phonenumber &&
-      regdata.location &&
+      // regdata.location &&
       regdata.password &&
       regdata.confirmpassword
     ) {
@@ -38,7 +38,7 @@ const Register = ({navigation}) => {
 
 
 
-    fetch("http://192.168.0.153:5000/usersdata", {
+    fetch("http://192.168.0.181:5000/usersdata", {
       method: "post",
       headers: {
         "Content-Type": "application/json" 
@@ -58,7 +58,7 @@ const Register = ({navigation}) => {
       return response.json();
     })
     .then(data => {
-      console.log("posted data successfully", data);
+      console.log("posted data successfully......", data);
     })
     .catch(error => {
       console.error('Error:', error);
@@ -95,7 +95,7 @@ const Register = ({navigation}) => {
           <Text style={styles.formHeaderText}>Registration Details</Text>
           <View style={styles.inputContainer}>
             <TextInput
-              placeholder="Restaurant Name"
+              placeholder="Full Name"
               value={regdata.restaurantname}
               onChangeText={(value) =>
                 eventChange('restaurantname', value)
@@ -103,7 +103,7 @@ const Register = ({navigation}) => {
               style={styles.input}
             />
             <TextInput
-              placeholder="Business Mail"
+              placeholder="Email"
               value={regdata.businessmail}
               onChangeText={(value) => eventChange('businessmail', value)}
               style={styles.input}
@@ -115,12 +115,12 @@ const Register = ({navigation}) => {
               keyboardType="numeric"
               style={styles.input}
             />
-            <TextInput
+            {/* <TextInput
               placeholder="Location"
               value={regdata.location}
               onChangeText={(value) => eventChange('location', value)}
               style={styles.input}
-            />
+            /> */}
             <TextInput
               placeholder="Password"
               value={regdata.password}
@@ -139,7 +139,7 @@ const Register = ({navigation}) => {
             />
           </View>
 
-          <Button title="Continue" onPress={regsubmit} />
+          <Button title="Sign up" onPress={regsubmit} />
         </View>
       )}
     </View>

@@ -15,7 +15,7 @@ const Signup = ({ navigation }) => {
   };
 
   const loginfun = () => {
-    fetch("http://192.168.0.153:5000/login", {
+    fetch("http://192.168.0.181:5000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,16 +35,17 @@ const Signup = ({ navigation }) => {
       .catch((error) => {
         console.error("Error:", error);
       });
+
+
+      console.log(email, "email");
+      console.log(password, "password");
   };
 
   const createaccountfun = () => {
     navigation.navigate("Home");
   };
 
-  useEffect(() => {
-    console.log(email, "email");
-    console.log(password, "password");
-  }, [email, password]);
+
 
   return (
     <View style={styles.container}>
@@ -52,9 +53,9 @@ const Signup = ({ navigation }) => {
         <Text style={styles.buttonText} onPress={() => setsigninup(true)}>
           Sign In
         </Text>
-        <Text style={styles.buttonText} onPress={() => setsigninup(false)}>
+        {/* <Text style={styles.buttonText} onPress={() => setsigninup(false)}>
           Sign Up
-        </Text>
+        </Text> */}
       </View>
 
       <View style={styles.formContainer}>

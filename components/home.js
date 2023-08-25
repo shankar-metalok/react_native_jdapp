@@ -1,9 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import Payment from '../components/payment'
 
 const FoodAppHome = () => {
   return (
     <View style={styles.container}>
+
+
+     <Payment/>
+
       <View style={styles.header}>
       <Image source={require('../images/Frame.png')} style={styles.itemImage} />
 
